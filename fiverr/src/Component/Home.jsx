@@ -1,9 +1,23 @@
-import { Box, Button, Flex, Image, Input,InputGroup,InputLeftAddon,Spacer, Stack, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem, HStack, Image, Input,InputGroup,InputLeftAddon,List,ListIcon,ListItem,Spacer, Stack, Text, VStack} from "@chakra-ui/react";
 import React from 'react';
 import { useRef } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-import {SearchIcon} from '@chakra-ui/icons'
+import {SearchIcon,CheckCircleIcon} from '@chakra-ui/icons';
+import { market, service } from "./Service";
+
 export default function Home(){
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 5,
+        slidesToScroll: 5
+      };
+
 const bgBox=useRef(null);
 const social=["https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/apps/facebook.31d5f92.png",
 'https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/apps/google.517da09.png',
@@ -59,11 +73,59 @@ return (<Box>
     <Stack>
 <Text textAlign='left' fontSize='3xl' fontWeight='medium' color='black'>
     Popular professional services</Text>
-    </Stack>
+   <Slider {...settings}>
+   
+    {service.map((el,i)=>{
+    return <div><Image display='block' m='auto' alt='err' src={el.img}/></div>})}
+    </Slider>
+   </Stack>
+<HStack bgColor='rgb(223, 250, 250)' mt='3rem' mb='3rem' p='3rem'>
+    <VStack width='48%' textAlign='left' fontSize='1.5xl' fontWeight='bold'>
+        <Text fontSize='5xl' fontWeight='bold'>A whole world of freelance talent at your fingertips</Text>
+    <List spacing={3}>
+  <ListItem>
+    <ListIcon as={CheckCircleIcon} color='green.500' />
+    The best for every budget
+  </ListItem>
+  <Text>Find high-quality services at every price point. No hourly rates,just project-based pricing</Text>
+  <ListItem>
+    <ListIcon as={CheckCircleIcon} color='green.500' />
+    Quality work done quickly
+  </ListItem>
+  <Text>Find the right freelancer to begin working on your project within minutes.</Text>
+  <ListItem>
+    <ListIcon as={CheckCircleIcon} color='green.500' />
+    Protected payments, every time
+  </ListItem>
+  <Text>Always know what you'll pay upfront. Your payment isn't released until you approve the work.</Text>
+  <ListItem>
+    <ListIcon as={CheckCircleIcon} color='green.500' />
+    24/7 support
+  </ListItem>
+  <Text>Questions? Our round-the-clock support team is available to help anytime, anywhere.</Text>
+</List>
+    </VStack>
+    <VStack>
+<video controls poster="https://fiverr-res.cloudinary.com/q_auto,f_auto,w_700,dpr_1.0/v1/attachments/generic_asset/asset/089e3bb9352f90802ad07ad9f6a4a450-1599517407052/selling-proposition-still-1400-x1.png">
+<source src='https://fiverr-res.cloudinary.com/video/upload/t_fiverr_hd/vmvv3czyk2ifedefkau7' 
+type="video/mp4"/>
+</video>
+   </VStack>
+</HStack>
+<Box>
+    <Text ml='10' mb='4' fontSize='3xl' textAlign='left' fontWeight='medium'>Explore the marketplace</Text>
+    <Grid templateColumns='repeat(5, 1fr)' gap={10} mb='4rem'>
+        {market.map((el,i)=>{return<GridItem >
+           <a href={el.a}>
+            <Image alt='error' display='block' height='5rem' margin="auto" width='27%'  src={el.img} />
+            <Text fontSize='1xl'>{el.title}</Text>
+            </a>
+            </GridItem>})}
+    </Grid>
 </Box>
-    )
-   
-    
-   
-    
+<Stack>
+
+</Stack>
+</Box>
+    )   
 }
